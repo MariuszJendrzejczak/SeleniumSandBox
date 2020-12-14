@@ -13,8 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class FirstTest
 {
     WebDriver driver;
-    String username = "tomsmith", password = "SuperSecretPassword!";
-    String expectedMsg = "You logged into a secure area!";
+
 
     public void highlightElement(WebElement element)
     {
@@ -69,63 +68,13 @@ public class FirstTest
         video.click();
     }
 
-    @Test
-    public void podcastTest()
-    {
-        driver.get("https://dev.to");
-        driver.findElement(By.partialLinkText("Podcasts")).click();
-        sleep(2000);
-        WebElement podcast = driver.findElement(By.cssSelector(".content > h3:first-child"));
-        String podcastdiscription = podcast.getText();
-        System.out.println(podcastdiscription);
-        podcast.click();
-        sleep(4000);
-        String actualMsg = driver.findElement(By.className("smaller")).getText();
-        Assert.assertTrue(podcastdiscription.contains(actualMsg));
-        driver.findElement(By.className("play-butt")).click();
-    }
-
-    @Test
-    public void searchTest()
-    {
-        driver.get("https://dev.to");
-        driver.findElement(By.name("q")).sendKeys("testing\n");
-        sleep(4000);
-        String firstResultText = driver.findElement(By.id("article-link-57091")).getText();
-        Assert.assertTrue(firstResultText.contains("testing")||firstResultText.contains("Testing"));
-        String secondResultText = driver.findElement(By.id("article-link-81023")).getText();
-        Assert.assertTrue(secondResultText.contains("testing")||secondResultText.contains("Testing"));
-        String thirdResultText = driver.findElement(By.id("article-link-267204")).getText();
-        Assert.assertTrue(thirdResultText.contains("testing")||thirdResultText.contains("Testing"));
 
 
-    }
-    @Test
-    public void loginTest()
-    {
-        driver.get("https://the-internet.herokuapp.com/login");
-        driver.findElement(By.name("username")).sendKeys(username);
-        driver.findElement(By.name("password")).sendKeys(password);
-        driver.findElement(By.tagName("button")).click();
-        String actualMsg = driver.findElement(By.id("flash")).getText();
-        Assert.assertTrue(actualMsg.contains(expectedMsg));
-        driver.findElement(By.partialLinkText("Logout")).click();
-    }
 
 
-    private void sleep(int miliSec) {
-        try {
-            Thread.sleep(miliSec);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-/*
     @After
     public void tearDown()
     {
         driver.quit();
-]    }*/
+    }
 }
