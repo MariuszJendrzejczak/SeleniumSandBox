@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class FirstTest
 {
     WebDriver driver;
+    WebDriverWait wait;
 
 
     public void highlightElement(WebElement element)
@@ -27,6 +28,7 @@ public class FirstTest
         System.setProperty("webdriver.chrome.driver","C:\\chromedriver\\chromedriver.exe");
         // ustawiamy property na chromdrivera którego użyjemy.
         driver = new ChromeDriver();
+        wait = new WebDriverWait(driver, 10);
 
     }
 
@@ -53,10 +55,41 @@ public class FirstTest
         driver.get("https://dev.to");
         WebElement videoBtn = driver.findElement(By.partialLinkText("Videos"));
         videoBtn.click();
-        WebDriverWait wait3sec = (WebDriverWait) new WebDriverWait(driver, 3);
-        wait3sec.until(ExpectedConditions.urlToBe("https://dev.to/videos"));
+        wait.until(ExpectedConditions.urlToBe("https://dev.to/videos"));
         WebElement video = driver.findElement(By.className("video-image"));
         video.click();
+    }
+
+    @Test
+    public void selectFirstPodcast(){
+        driver.get("https://dev.to");
+        WebElement podcasts = driver.findElement(By.partialLinkText("Podcasts"));
+        podcasts.click();
+        wait.until(ExpectedConditions.urlToBe("https://dev.to/pod"));
+        WebElement firstPodcast = driver.findElement(By.cssSelector(".content > h3:first-child"));
+        String podcastTitleFromList = firstPodcast.getText();
+        String firstPodcastFromListLink = driver.findElement(By.cssSelector("#substories > a:first-child")).getAttribute("href");
+//
+//        WebElement linkToPodcast = driver.findElement(By.cssSelector("#substories > a:first-child"));
+//        String linkToPodcastHref = linkToPodcast.getAttribute("href");
+//
+        firstPodcast.click();
+        wait.until(ExpectedConditions.urlToBe(firstPodcastFromListLink));
+        WebElement podcastTitle = driver.findElement(By.cssSelector(".title > h1:nth-child(2)"));
+        String podcastTitleText = podcastTitle.getText();
+        Assert.assertTrue(podcastTitleFromList.contains(podcastTitleText));
+        WebElement record = driver.findElement(By.className("record"));
+        record.click();
+        WebElement initializing = driver.findElement(By.className("status-message"));
+        wait.until(ExpectedConditions.invisibilityOf(initializing));
+        WebElement recordWrapper = driver.findElement(By.className("record-wrapper"));
+        String classAttribute = recordWrapper.getAttribute("class");
+        Boolean isPodcastPlayed = classAttribute.contains("playing");
+        Assert.assertTrue(isPodcastPlayed);
+        //znajdz record
+        //kliknij record :)
+        //zadanko 2 : napisz na click meetingu, jak sprawdzić czy podcast jest "odpalony" XD
+        //div zmienia nazwę klasy na record-wrapper playing
     }
 
     @Test
@@ -68,6 +101,14 @@ public class FirstTest
         video.click();
     }
 
+    private void sleep(int miliSec) {
+        try {
+            Thread.sleep(miliSec);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 
@@ -75,6 +116,6 @@ public class FirstTest
     @After
     public void tearDown()
     {
-        driver.quit();
+    //    driver.quit();
     }
 }

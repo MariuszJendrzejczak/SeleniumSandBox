@@ -21,8 +21,8 @@ public class MoreComplexTests {
     @Before
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\chromedriver.exe");
-        // ustawiamy property na chromdrivera którego użyjemy.
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
     }
 
     @Test
@@ -48,13 +48,12 @@ public class MoreComplexTests {
         driver.get("https://dev.to");
         driver.findElement(By.name("q")).sendKeys("testing\n");
         sleep(4000);
-        String firstResultText = driver.findElement(By.id("article-link-57091")).getText();
-        Assert.assertTrue(firstResultText.contains("testing")||firstResultText.contains("Testing"));
-        String secondResultText = driver.findElement(By.id("article-link-81023")).getText();
-        Assert.assertTrue(secondResultText.contains("testing")||secondResultText.contains("Testing"));
-        String thirdResultText = driver.findElement(By.id("article-link-267204")).getText();
-        Assert.assertTrue(thirdResultText.contains("testing")||thirdResultText.contains("Testing"));
-
+        String firstResultText = driver.findElement(By.id("article-link-57091")).getText().toLowerCase();
+        Assert.assertTrue(firstResultText.contains("testing"));
+        String secondResultText = driver.findElement(By.id("article-link-81023")).getText().toLowerCase();
+        Assert.assertTrue(secondResultText.contains("testing"));
+        String thirdResultText = driver.findElement(By.id("article-link-267204")).getText().toLowerCase();
+        Assert.assertTrue(thirdResultText.contains("testing"));
 
     }
 
@@ -102,7 +101,7 @@ public class MoreComplexTests {
         aliasField.clear();
         aliasField.sendKeys(alias);
         //click reg button
-        
+
     }
 
 
