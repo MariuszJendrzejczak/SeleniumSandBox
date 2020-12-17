@@ -41,14 +41,6 @@ public class FirstTest
 
     }
 
-    @Test
-    public  void secondTest()
-    {
-        driver.get("https://dev.to");
-        WebElement videoBtn = driver.findElement(By.xpath("/html/body/div[9]/div/div/div[1]/aside/nav[1]/div/a[3]"));
-        highlightElement(videoBtn);
-        videoBtn.click();
-    }
 
     @Test
     public void openVideosBtnByText()  {

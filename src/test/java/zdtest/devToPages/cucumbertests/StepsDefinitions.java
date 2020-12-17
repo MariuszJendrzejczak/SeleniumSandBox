@@ -1,4 +1,4 @@
-package zdtest.cucumbertests;
+package zdtest.devToPages.cucumbertests;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -192,5 +192,62 @@ public class StepsDefinitions {
 
     @And("User select {int} as years value")
     public void userSelectAsYearsValue(int arg0) {
+        new Select(driver.findElement(By.id("years"))).selectByValue("1999");
+    }
+
+    @And("User mark newslater checkbox")
+    public void userMarkNewslaterCheckbox() {
+        driver.findElement(By.name("newsletter")).click();
+    }
+
+
+    @And("User click on username field")
+    public void userClickOnUsernameField() {
+        driver.findElement(By.id("firstname")).click();
+    }
+
+    @And("User click on lastname field")
+    public void userClickOnLastnameField() {
+        driver.findElement(By.id("lastname")).click();
+    }
+
+    @And("User type {string} as adress")
+    public void userTypeAsAdress(String arg0) {
+    }
+
+    @And("User select America as coutry value")
+    public void userSelectAmericaAsCoutryValue() {
+        new Select(driver.findElement(By.id("id_country"))).selectByValue("21");
+    }
+
+    @And("User type {string} as city")
+    public void userTypeAsCity(String city) {
+        driver.findElement(By.id("city")).sendKeys(city);
+    }
+
+    @And("User type {string} as phone number")
+    public void userTypeAsPhoneNumber(String phone) {
+        driver.findElement(By.id("phone_mobile")).sendKeys(phone);
+
+    }
+
+    @And("User type {string} as alias")
+    public void userTypeAsAlias(String alias) {
+        WebElement aliasField = driver.findElement(By.id("alias"));
+        aliasField.clear();
+        aliasField.sendKeys(alias);
+    }
+
+    @And("User click registration button")
+    public void userClickRegistrationButton() {
+    }
+
+    @Then("User get verification email")
+    public void userGetVerificationEmail() {
+    }
+
+    @And("User select {int} as State value")
+    public void userSelectAsStateValue(int arg0) {
+        new Select(driver.findElement(By.id("id_state"))).selectByValue("12");
     }
 }

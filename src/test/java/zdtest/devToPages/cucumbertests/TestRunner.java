@@ -1,4 +1,4 @@
-package zdtest.cucumbertests;
+package zdtest.devToPages.cucumbertests;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
